@@ -7,6 +7,7 @@ ENV ?= dev
 help:
 	@echo "OpsDesk targets:"
 	@echo "  make bootstrap        -> install ingress-nginx + metrics-server + TLS secret"
+	@echo "  INSTALL_OBSERVABILITY=1 make bootstrap -> make bootstrap +observa "
 	@echo "  make ci ENV=dev       -> lint, test, build, scan, validate, deploy, smoke"
 	@echo "  TRIVY_EXIT_CODE=0 make ci ENV=dev -> Scan but no fail" 
 	@echo "  make cd               -> deploy overlay prod-like (local)"
