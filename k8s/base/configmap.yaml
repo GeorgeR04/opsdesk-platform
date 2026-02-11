@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opsdesk-config
+  namespace: opsdesk
+data:
+  ENV: "dev"
+  LOG_LEVEL: "INFO"

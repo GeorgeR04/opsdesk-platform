@@ -1,0 +1,28 @@
+# Auto-detect text files
+* text=auto
+
+# Force LF for Linux-sensitive files (Docker/K8s/CI scripts)
+*.sh            text eol=lf
+Dockerfile*     text eol=lf
+Makefile        text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.toml          text eol=lf
+*.ini           text eol=lf
+*.py            text eol=lf
+
+# Windows scripts (if you ever add some)
+*.ps1           text eol=crlf
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+
+# Binary files
+*.png           binary
+*.jpg           binary
+*.jpeg          binary
+*.gif           binary
+*.pdf           binary
+*.zip           binary
+*.gz            binary
+*.tgz           binary
+*.ico           binary

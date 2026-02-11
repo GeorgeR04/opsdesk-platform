@@ -1,0 +1,42 @@
+{
+  "uid": "opsdesk-cluster",
+  "title": "OpsDesk Cluster / Ingress",
+  "schemaVersion": 39,
+  "version": 1,
+  "timezone": "browser",
+  "panels": [
+    {
+      "type": "timeseries",
+      "title": "Ingress requests (nginx)",
+      "gridPos": { "x": 0, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests[1m]))",
+          "legendFormat": "rps"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "Ingress 5xx (nginx)",
+      "gridPos": { "x": 12, "y": 0, "w": 12, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(rate(nginx_ingress_controller_requests{status=~\"5..\"}[1m]))",
+          "legendFormat": "5xx"
+        }
+      ]
+    },
+    {
+      "type": "timeseries",
+      "title": "OpsDesk restarts (10m)",
+      "gridPos": { "x": 0, "y": 8, "w": 24, "h": 8 },
+      "targets": [
+        {
+          "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=\"opsdesk\"}[10m]))",
+          "legendFormat": "restarts"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: opsdesk
+
+resources:
+  - namespace.yaml
+  - serviceaccounts.yaml
+  - rbac.yaml
+  - configmap.yaml
+  - api.deployment.yaml
+  - api.service.yaml
+  - worker.deployment.yaml
+  - frontend.deployment.yaml
+  - frontend.service.yaml
+  - ingress.yaml
+  - hpa.yaml
+  - postgres.service.yaml
+  - postgres.statefulset.yaml
+  - redis.service.yaml
+  - redis.deployment.yaml
+
+
+images:
+  - name: OPSDESK_API_IMAGE
+    newName: opsdesk/api
+    newTag: dev
+  - name: OPSDESK_WORKER_IMAGE
+    newName: opsdesk/worker
+    newTag: dev
+  - name: OPSDESK_FRONTEND_IMAGE
+    newName: opsdesk/frontend
+    newTag: dev

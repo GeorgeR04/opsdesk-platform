@@ -1,0 +1,21 @@
+config:
+  clients:
+    - url: http://loki.observability.svc.cluster.local:3100/loki/api/v1/push
+
+  snippets:
+    pipelineStages:
+      - json:
+          expressions:
+            service: service
+            env: env
+            version: version
+            request_id: request_id
+            levelname: levelname
+            name: name
+            message: message
+      - labels:
+          service:
+          env:
+          version:
+      - output:
+          source: message

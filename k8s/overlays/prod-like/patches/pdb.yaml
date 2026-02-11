@@ -1,0 +1,32 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-opsdesk-api
+  namespace: opsdesk
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: opsdesk-api
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-opsdesk-frontend
+  namespace: opsdesk
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: opsdesk-frontend
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: pdb-opsdesk-worker
+  namespace: opsdesk
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: opsdesk-worker

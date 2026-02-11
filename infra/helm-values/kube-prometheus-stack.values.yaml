@@ -1,0 +1,26 @@
+grafana:
+  enabled: true
+
+  # On provisionne dashboards/datasources via sidecar + ConfigMaps
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+    datasources:
+      enabled: true
+      label: grafana_datasource
+      labelValue: "1"
+
+  # Mot de passe via secret hors Git (créé plus tard dans pipeline)
+  admin:
+    existingSecret: grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
+
+prometheus:
+  prometheusSpec:
+    retention: 2d
+
+alertmanager:
+  enabled: true

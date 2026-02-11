@@ -1,0 +1,40 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: opsdesk-alerts
+  namespace: observability
+  labels:
+    release: kps
+spec:
+  groups:
+    - name: opsdesk.rules
+      rules:
+        - alert: OpsDeskApiHigh5xxRate
+          expr: |
+            sum(rate(opsdesk_http_requests_total{status=~"5.."}[5m])) > 0.5
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "OpsDesk API 5xx rate high"
+            description: "API returns too many 5xx (>0.5 req/s for 5m)."
+
+        - alert: OpsDeskApiHighP95Latency
+          expr: |
+            histogram_quantile(0.95, sum(rate(opsdesk_http_request_duration_seconds_bucket[5m])) by (le)) > 0.5
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "OpsDesk API p95 latency high"
+            description: "p95 latency > 500ms for 5m."
+
+        - alert: OpsDeskCrashLooping
+          expr: |
+            increase(kube_pod_container_status_restarts_total{namespace="opsdesk"}[10m]) > 2
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: "OpsDesk pods restarting"
+            description: "More than 2 container restarts in opsdesk in 10m."

@@ -1,0 +1,19 @@
+services:
+  toolbox:
+    build:
+      context: ./infra/devops-toolbox
+    image: opsdesk/devops-toolbox:local
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+      - ${USERPROFILE}/.kube:/home/dev/.kube:ro
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - KUBECONFIG=/home/dev/.kube/config
+    extra_hosts:
+      - "opsdesk.local:host-gateway"
+      - "api.opsdesk.local:host-gateway"
+      - "grafana.opsdesk.local:host-gateway"
+    stdin_open: true
+    tty: true
+    user: "0:0"

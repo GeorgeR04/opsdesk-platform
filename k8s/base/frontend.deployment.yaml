@@ -1,0 +1,76 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsdesk-frontend
+  namespace: opsdesk
+  labels:
+    app: opsdesk-frontend
+    app.kubernetes.io/version: "dev"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opsdesk-frontend
+  template:
+    metadata:
+      labels:
+        app: opsdesk-frontend
+        app.kubernetes.io/version: "dev"
+    spec:
+      serviceAccountName: sa-frontend
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: frontend
+          image: OPSDESK_FRONTEND_IMAGE
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: SERVICE_NAME
+              value: "frontend"
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/version']
+
+          ports:
+            - containerPort: 8080
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: tmp
+          emptyDir: {}

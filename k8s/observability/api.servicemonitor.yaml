@@ -1,0 +1,18 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opsdesk-api
+  namespace: observability
+  labels:
+    release: kps
+spec:
+  namespaceSelector:
+    matchNames:
+      - opsdesk
+  selector:
+    matchLabels:
+      app: opsdesk-api
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: 15s

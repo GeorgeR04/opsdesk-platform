@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=70", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "opsdesk-api"
+version = "0.1.0"
+description = "OpsDesk API (FastAPI)"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.128.7",
+  "uvicorn[standard]==0.40.0",
+  "sqlalchemy==2.0.46",
+  "alembic==1.18.4",
+  "python-dotenv==1.2.1",
+  "prometheus-client==0.24.1",
+  "pyyaml==6.0.3",
+
+  "python-json-logger==2.0.7",
+
+  "psycopg[binary]==3.2.2",
+
+  "httpx==0.28.1",
+
+
+  "celery[redis]==5.4.0",
+  "redis==5.1.1",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+exclude = ["alembic*", "tests*"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]

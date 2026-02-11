@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsdesk-api
+  namespace: opsdesk
+spec:
+  replicas: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsdesk-frontend
+  namespace: opsdesk
+spec:
+  replicas: 2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsdesk-worker
+  namespace: opsdesk
+spec:
+  replicas: 1

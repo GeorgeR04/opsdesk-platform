@@ -1,0 +1,18 @@
+loki:
+  auth_enabled: false
+
+singleBinary:
+  replicas: 1
+
+# stockage local (OK pour Docker Desktop)
+storage:
+  type: filesystem
+
+# limites modestes
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi

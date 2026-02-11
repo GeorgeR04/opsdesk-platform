@@ -1,0 +1,65 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opsdesk-worker
+  namespace: opsdesk
+  labels:
+    app: opsdesk-worker
+    app.kubernetes.io/version: "dev"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opsdesk-worker
+  template:
+    metadata:
+      labels:
+        app: opsdesk-worker
+        app.kubernetes.io/version: "dev"
+    spec:
+      serviceAccountName: sa-worker
+      automountServiceAccountToken: false
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      containers:
+        - name: worker
+          image: OPSDESK_WORKER_IMAGE
+          imagePullPolicy: IfNotPresent
+
+          env:
+            - name: SERVICE_NAME
+              value: "worker"
+            - name: VERSION
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.labels['app.kubernetes.io/version']
+
+          envFrom:
+            - configMapRef:
+                name: opsdesk-config
+            - secretRef:
+                name: opsdesk-secrets
+
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "512Mi"
+
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+
+      volumes:
+        - name: tmp
+          emptyDir: {}
