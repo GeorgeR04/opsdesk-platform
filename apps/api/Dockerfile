@@ -22,7 +22,6 @@ COPY app ./app
 COPY alembic ./alembic
 COPY alembic.ini ./alembic.ini
 
-# (Optionnel mais propre)
 RUN chown -R "${UID}:${GID}" /app
 
 USER ${UID}:${GID}
