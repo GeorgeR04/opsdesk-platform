@@ -1,6 +1,5 @@
 from prometheus_client import Counter, Histogram
 
-# Garder path faible cardinalité → on utilisera le "route pattern" (ex: /api/changes)
 HTTP_REQUESTS = Counter(
     "opsdesk_http_requests_total",
     "Total HTTP requests",
