@@ -49,4 +49,4 @@ kubectl -n "${NS}" wait --for=condition=complete "job/${JOB}" --timeout="${TIMEO
 log "Migration logs (tail)"
 kubectl -n "${NS}" logs "job/${JOB}" --tail=200 || true
 
-log "Migrations OK ✅"
+log "Migrations OK "
