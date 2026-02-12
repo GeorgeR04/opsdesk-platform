@@ -3,7 +3,6 @@ FROM python:3.12-slim
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1
 
-# UID/GID numériques -> Kubernetes peut valider runAsNonRoot
 ARG UID=10001
 ARG GID=10001
 
