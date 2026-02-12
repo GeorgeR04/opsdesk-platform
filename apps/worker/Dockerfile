@@ -18,13 +18,13 @@ WORKDIR /app
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -U pip && pip install --no-cache-dir -r requirements.txt
 
-# Code worker
+
 COPY worker ./worker
 
 RUN chown -R "${UID}:${GID}" /app
 USER ${UID}:${GID}
 
-# Defaults sûrs pour petit cluster / dev
+
 ENV CELERY_LOGLEVEL=info \
     CELERY_POOL=solo \
     CELERY_CONCURRENCY=1
