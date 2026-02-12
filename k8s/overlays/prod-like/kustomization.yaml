@@ -12,10 +12,10 @@ patches:
 images:
 - name: OPSDESK_API_IMAGE
   newName: opsdesk/api
-  newTag: 49d6b65-dirty
+  newTag: 73f4691-dirty
 - name: OPSDESK_FRONTEND_IMAGE
   newName: opsdesk/frontend
-  newTag: 49d6b65-dirty
+  newTag: 73f4691-dirty
 - name: OPSDESK_WORKER_IMAGE
   newName: opsdesk/worker
-  newTag: 49d6b65-dirty
+  newTag: 73f4691-dirty

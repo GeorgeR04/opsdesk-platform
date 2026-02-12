@@ -25,7 +25,7 @@ set -euo pipefail
 #   PROMTAIL_VALUES=infra/helm-values/promtail.values.yaml
 # ------------------------------------------------------------------------------
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 # If you already have a shared logger, keep it. Otherwise, provide a tiny fallback.
 if [[ -f "${ROOT_DIR}/scripts/lib.sh" ]]; then
