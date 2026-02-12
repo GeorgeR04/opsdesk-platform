@@ -62,7 +62,7 @@ else
   log "Redis not found (skip wait)"
 fi
 
-# --- Migrations (Jour 2) ---
+# --- Migrations ---
 if [[ -x "./scripts/migrate.sh" ]]; then
   log "Run DB migrations (Alembic job)"
   ./scripts/migrate.sh || die "Migration failed. Check job logs in opsdesk namespace."
@@ -70,7 +70,7 @@ else
   log "migrate.sh not found/executable (skipping)"
 fi
 
-# --- Rollouts (apps) ---
+# --- Rollouts ---
 log "Wait for rollouts (api/frontend/worker)"
 kubectl -n opsdesk rollout status deploy/opsdesk-api --timeout=180s \
   || die "API rollout failed. Check: kubectl -n opsdesk describe deploy/opsdesk-api; kubectl -n opsdesk logs deploy/opsdesk-api"
