@@ -8,10 +8,8 @@ log "Python tests (pytest)"
 
 rm -rf .venv-ci
 python3 -m venv .venv-ci
-# shellcheck disable=SC1091
 source .venv-ci/bin/activate
 
-# Pin pip < 26 (plus tolérant sur certains cas editables/monorepo)
 python -m pip install -U "pip<26" wheel
 python -m pip --version
 
