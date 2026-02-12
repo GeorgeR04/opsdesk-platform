@@ -18,7 +18,7 @@ def process_change(change_id: str):
         if not c:
             return {"ok": False, "reason": "change_not_found"}
 
-        # Simu KPI: stats globales (simple mais démontrable)
+        
         now = time.time()
         lead_time = max(0.0, (now - c.created_at) / 60.0)
 
@@ -33,7 +33,7 @@ def process_change(change_id: str):
             )
             db.add(s)
         else:
-            # moyenne glissante “simple”
+        
             s.lead_time_avg_minutes = (s.lead_time_avg_minutes * 0.8) + (lead_time * 0.2)
             s.updated_at = now
 
