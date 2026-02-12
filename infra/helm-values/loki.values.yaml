@@ -8,7 +8,7 @@ loki:
   storage:
     type: filesystem
 
-  # super pratique en dev pour éviter de te battre avec la schema
+
   useTestSchema: true
 
 singleBinary:
