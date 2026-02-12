@@ -191,7 +191,7 @@ fi
 # ------------------------------------------------------------------------------
 # Done
 # ------------------------------------------------------------------------------
-log "Bootstrap done ✅"
+log "Bootstrap done "
 log "Quick checks:"
 log "  kubectl -n ${INGRESS_NGINX_NS} get pods"
 log "  kubectl -n kube-system get pods | grep metrics"
